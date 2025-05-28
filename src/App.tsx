@@ -1,13 +1,13 @@
-import './App.css'
+import "./App.css";
+import { Root } from "./layout/root";
 
 const App = () => {
-
   return (
-    <div>
+    <Root>
       <h1>Overview</h1>
       <p>Here you can find user details.</p>
-    </div>
-  )
-}
+    </Root>
+  );
+};
 
-export default App
+export default App;
