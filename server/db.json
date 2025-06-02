@@ -11,6 +11,12 @@
       "name": "Jane Smith",
       "email": "jane@example.com",
       "role": "User"
+    },
+    {
+      "name": "Test name 3",
+      "email": "testing@gmail.com",
+      "role": "User",
+      "id": 3
     }
   ]
 }

@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@theme inline {
+  --color-adminbg: var(--color-red-200);
+  --color-admin: var(--color-red-500);
+  --color-userbg: var(--color-blue-200);
+  --color-user: var(--color-blue-500);
+}
 
 body {
   margin: 0;

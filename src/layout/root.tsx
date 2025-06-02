@@ -5,7 +5,7 @@ interface RootProps {
   children: React.ReactNode;
 }
 
-export const Root: FC<RootProps> = ({ children }) => {
+export const RootLayout: FC<RootProps> = ({ children }) => {
   return (
     <div>
       <Header
