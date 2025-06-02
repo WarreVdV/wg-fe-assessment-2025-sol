@@ -1,5 +1,14 @@
 # WeGroup Frontend Assessment
 
+## Note WARRE
+   De afgewerkte versie 😁👍
+
+   Ik heb zoveel mogelijk proberen te maken, maar met rekening te houden met de afgesproken ~3 uur werk en krappe agenda bij mij ben ik styling wat kort gehouden.
+
+   PS: niet vergeten uw **.env** aan te maken ✌️😉
+
+## Task
+
 Your task is to develop a **Users overview** application. The application should include the following features:
 
 1. **Overview of Users**: Display an overview of all users with their name, email address, and role. The list should be fetched from the mock API provided in the server folder.
