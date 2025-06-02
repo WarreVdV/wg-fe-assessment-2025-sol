@@ -9,6 +9,11 @@ import { ROLE_OPTIONS } from "../../util/constants";
 import ActionButton from "../ActionButton/ActionButton";
 import handleRoleColor from "../../util/handleRoleColor";
 
+const NAME_LABEL = "Full name";
+const NAME_PLACEHOLDER = "Write a full name here";
+const EMAIL_LABEL = "Email";
+const EMAIL_PLACEHOLDER = "Enter a valid email address";
+
 const NewUserTableRow: FC<NewUserTableRowProps> = ({
   className,
   onCreate,
@@ -61,13 +66,13 @@ const NewUserTableRow: FC<NewUserTableRowProps> = ({
                 htmlFor="first_name"
                 className="block mb-1 text-sm font-medium text-gray-900"
               >
-                First name
+                {NAME_LABEL}
               </label>
               <input
                 id="first_name"
                 type="text"
                 required
-                placeholder="Write a full name here"
+                placeholder={NAME_PLACEHOLDER}
                 value={name as string}
                 onChange={(e) => setName(e.target.value)}
                 className="text-base"
@@ -78,13 +83,13 @@ const NewUserTableRow: FC<NewUserTableRowProps> = ({
                 htmlFor="email"
                 className="block mb-1 text-sm font-medium text-gray-900"
               >
-                Email
+                {EMAIL_LABEL}
               </label>
               <input
                 id="email"
                 type="email"
                 required
-                placeholder="Enter a valid email address"
+                placeholder={EMAIL_PLACEHOLDER}
                 value={email as string}
                 onChange={(e) => setEmail(e.target.value)}
                 className="font-normal text-gray-500 px-1"
