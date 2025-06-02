@@ -58,12 +58,12 @@ const UserTableRow: FC<UserTableRowProps> = ({
       <tr
         className={classNames(
           className,
-          "bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+          "bg-white border-b border-gray-200 hover:bg-gray-50"
         )}
       >
         <th
           scope="row"
-          className="flex items-center px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white"
+          className="flex items-center px-3 py-4 text-gray-900 whitespace-nowrap"
         >
           <div
             className={classNames(
@@ -81,7 +81,7 @@ const UserTableRow: FC<UserTableRowProps> = ({
               <div>
                 <label
                   htmlFor="first_name"
-                  className="block mb-1 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-1 text-sm font-medium text-gray-900"
                 >
                   First name
                 </label>
@@ -98,7 +98,7 @@ const UserTableRow: FC<UserTableRowProps> = ({
               <div>
                 <label
                   htmlFor="email"
-                  className="block mb-1 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-1 text-sm font-medium text-gray-900"
                 >
                   Email
                 </label>
@@ -148,13 +148,13 @@ const UserTableRow: FC<UserTableRowProps> = ({
   return (
     <tr
       className={classNames(
-        "bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600",
+        "bg-white border-b  border-gray-200 hover:bg-gray-50 ",
         onClick && "cursor-pointer"
       )}
     >
       <th
         scope="row"
-        className="flex items-center px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white"
+        className="flex items-center px-3 py-4 text-gray-900 whitespace-nowrap"
         onClick={() => onClick && onClick(user)}
       >
         <div

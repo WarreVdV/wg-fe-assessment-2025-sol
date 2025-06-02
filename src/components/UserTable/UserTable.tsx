@@ -23,7 +23,7 @@ export const UserTable: FC<UserTableProps> = ({
         )}
       >
         <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-          <thead className="sticky top-0 w-full text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700">
+          <thead className="sticky top-0 w-full text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
               {COLUMNS.map((col) => (
                 <th
