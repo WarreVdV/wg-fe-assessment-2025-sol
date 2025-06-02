@@ -1,6 +1,13 @@
 import { FC } from "react";
-import { SpinnerProps } from "./Spinner.type";
 import classNames from "classnames";
+
+interface SpinnerProps {
+  size?: String;
+  color?: {
+    background?: String;
+    fill?: String;
+  };
+}
 
 const Spinner: FC<SpinnerProps> = ({ size, color }) => {
   return (

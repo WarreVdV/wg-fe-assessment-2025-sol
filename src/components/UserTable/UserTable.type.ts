@@ -1,7 +1,14 @@
 import { User } from "../../api/UserAPI/user.type";
 
+type sortDirection = "asc" | "desc";
+
 export interface UserTableProps {
   className?: String;
+  onHeaderClick?: (key: keyof User) => void;
+  activeSort?: {
+    key: String;
+    direction: sortDirection;
+  };
   children: React.ReactNode;
 }
 

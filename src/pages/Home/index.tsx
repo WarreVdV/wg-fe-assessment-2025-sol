@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { FC, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import {
   getUsers,
   createUser,
@@ -10,10 +10,12 @@ import { UserTable } from "../../components/UserTable/UserTable";
 import UserTableRow from "../../components/UserTable/UserTableRow";
 import { User } from "../../api/UserAPI/user.type";
 import NewUserTableRow from "../../components/UserTable/NewUserTableRow";
-import Spinner from "../../layout/Spinner";
+import Spinner from "../../layout/Spinner/Spinner";
+import useSortQueryTable from "../../hooks/useSortQueryTable";
 
 const Home: FC = () => {
   const queryClient = useQueryClient();
+
   const [createNewUserFlag, setcreateNewUserFlag] = useState<boolean>(false);
   // Fetch users
   const {
@@ -24,6 +26,12 @@ const Home: FC = () => {
     queryKey: ["users"],
     queryFn: () => getUsers(),
   });
+
+  const { sortedList, setSortKey, sortKey, direction, setDirection } =
+    useSortQueryTable<User>({
+      list: users || [],
+      defaultKey: "name",
+    });
 
   // Create user
   const createUserMutation = useMutation({
@@ -53,6 +61,18 @@ const Home: FC = () => {
     },
   });
 
+  const handleSort = useCallback(
+    (key: keyof User) => {
+      if (key === sortKey) {
+        setDirection(direction === "asc" ? "desc" : "asc");
+      } else {
+        setSortKey(key);
+        setDirection("asc");
+      }
+    },
+    [sortKey, direction, setSortKey, setDirection]
+  );
+
   if (error) {
     return <div>Error: {error.message}</div>;
   }
@@ -75,15 +95,18 @@ const Home: FC = () => {
             <Spinner></Spinner>
           </div>
         )}
-        {users && (
-          <UserTable>
+        {sortedList && (
+          <UserTable
+            onHeaderClick={handleSort}
+            activeSort={{ key: sortKey as keyof User, direction: direction }}
+          >
             {createNewUserFlag && (
               <NewUserTableRow
                 onCreate={(newUser: User) => createUserMutation.mutate(newUser)}
                 onCancel={() => setcreateNewUserFlag(false)}
               ></NewUserTableRow>
             )}
-            {users?.map((user) => (
+            {sortedList?.map((user) => (
               <UserTableRow
                 key={`${user.id}`}
                 user={user}
