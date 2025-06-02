@@ -1,12 +1,21 @@
 import { FC, useCallback, useMemo, useState } from "react";
+
+import classNames from "classnames";
+
 import { UserTableRowProps } from "./UserTable.type";
-import ActionButton from "../ActionButton/ActionButton";
 import { User } from "../../api/UserAPI/user.type";
 import { ROLE_OPTIONS } from "../../util/constants";
-import classNames from "classnames";
+
+import ActionButton from "../ActionButton/ActionButton";
 import handleRoleColor from "../../util/handleRoleColor";
 
-const UserTableRow: FC<UserTableRowProps> = ({ user, onEdit, onDelete }) => {
+const UserTableRow: FC<UserTableRowProps> = ({
+  className,
+  user,
+  onEdit,
+  onDelete,
+  onClick,
+}) => {
   const [name, setName] = useState<String>(user.name || "");
   const [email, setEmail] = useState<String>(user.email || "");
   const [role, setRole] = useState<User["role"]>(user.role || "");
@@ -21,6 +30,7 @@ const UserTableRow: FC<UserTableRowProps> = ({ user, onEdit, onDelete }) => {
     setEditMode(false);
   }, [user]);
 
+  // Handle patch request to update user
   const handlePatch = useCallback(() => {
     if (onEdit) {
       const updatedUser = { name: name, email: email, role: role } as User;
@@ -29,6 +39,7 @@ const UserTableRow: FC<UserTableRowProps> = ({ user, onEdit, onDelete }) => {
     setEditMode(false);
   }, [onEdit, user]);
 
+  // Handle delete request to remove user
   const handleDelete = useCallback(() => {
     if (onDelete) {
       onDelete(user);
@@ -36,13 +47,20 @@ const UserTableRow: FC<UserTableRowProps> = ({ user, onEdit, onDelete }) => {
     setEditMode(false);
   }, [onDelete, user]);
 
+  // Handle close action to reset user and exit edit mode
   const handleClose = useCallback(() => {
+    resetUser();
     setEditMode(false);
   }, [resetUser]);
 
   if (editMode) {
     return (
-      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+      <tr
+        className={classNames(
+          className,
+          "bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+        )}
+      >
         <th
           scope="row"
           className="flex items-center px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white"
@@ -111,17 +129,14 @@ const UserTableRow: FC<UserTableRowProps> = ({ user, onEdit, onDelete }) => {
           <div className="flex space-x-2">
             <ActionButton
               actionType="accept"
-              tooltip="Accept"
               onClick={handlePatch}
             ></ActionButton>
             <ActionButton
               actionType="stop"
-              tooltip="Cancel"
               onClick={handleClose}
             ></ActionButton>
             <ActionButton
               actionType="delete"
-              tooltip="Delete"
               onClick={handleDelete}
             ></ActionButton>
           </div>
@@ -131,10 +146,16 @@ const UserTableRow: FC<UserTableRowProps> = ({ user, onEdit, onDelete }) => {
   }
 
   return (
-    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+    <tr
+      className={classNames(
+        "bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600",
+        onClick && "cursor-pointer"
+      )}
+    >
       <th
         scope="row"
         className="flex items-center px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white"
+        onClick={() => onClick && onClick(user)}
       >
         <div
           className={classNames(
@@ -151,7 +172,7 @@ const UserTableRow: FC<UserTableRowProps> = ({ user, onEdit, onDelete }) => {
           <div className="font-normal text-gray-500">{email}</div>
         </div>
       </th>
-      <td className="px-6 py-4">
+      <td onClick={() => onClick && onClick(user)} className="px-6 py-4">
         <div className={classNames(roleColor, "w-fit py-1 px-2 rounded-2xl")}>
           {role}
         </div>
@@ -159,7 +180,6 @@ const UserTableRow: FC<UserTableRowProps> = ({ user, onEdit, onDelete }) => {
       <td className="w-1 whitespace-nowrap pr-10">
         <ActionButton
           actionType="edit"
-          tooltip="Edit"
           onClick={() => setEditMode(true)}
         ></ActionButton>
       </td>

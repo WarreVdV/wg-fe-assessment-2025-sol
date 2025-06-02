@@ -15,7 +15,7 @@ export interface UserTableProps {
 export interface UserTableRowProps {
   className?: String;
   user: User;
-  onClick?: (user: User) => void;
+  onClick?: (user: User | undefined) => void;
   onDelete?: (user: User) => void;
   onEdit?: (user: User) => void;
 }

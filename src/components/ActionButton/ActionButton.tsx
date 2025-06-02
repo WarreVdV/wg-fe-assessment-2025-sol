@@ -1,5 +1,4 @@
 import { FC, useMemo } from "react";
-import { ActionButtonProps } from "./ActionButton.type";
 import {
   IoAddOutline,
   IoCheckmark,
@@ -7,15 +6,18 @@ import {
   IoPencil,
   IoTrashBin,
 } from "react-icons/io5";
+
 import classNames from "classnames";
+
+import { ActionButtonProps } from "./ActionButton.type";
 
 const ActionButton: FC<ActionButtonProps> = ({
   actionType,
   onClick,
   text,
-  tooltip,
   submit = false,
 }) => {
+  // Memoize the button style and icon based on the action type
   const buttonStyle = useMemo(() => {
     switch (actionType) {
       case "add":
@@ -60,9 +62,9 @@ const ActionButton: FC<ActionButtonProps> = ({
         };
     }
   }, [actionType]);
+
   return (
     <div>
-      {/* Tooltip */}
       <button
         data-tooltip-target="tooltip-light"
         type={submit ? "submit" : "button"}
@@ -75,17 +77,6 @@ const ActionButton: FC<ActionButtonProps> = ({
         {buttonStyle.icon}
         {text && <span className="ml-2">{text}</span>}
       </button>
-      {/* Tooltip */}
-      {tooltip && (
-        <div
-          id="tooltip-light"
-          role="tooltip"
-          className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-xs opacity-0 tooltip"
-        >
-          {tooltip}
-          <div className="tooltip-arrow" data-popper-arrow></div>
-        </div>
-      )}
     </div>
   );
 };

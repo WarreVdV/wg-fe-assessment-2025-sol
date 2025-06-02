@@ -1,5 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FC, useCallback, useState } from "react";
+import { useNavigate } from "react-router";
+
 import {
   getUsers,
   createUser,
@@ -7,14 +9,16 @@ import {
   deleteUser,
 } from "../../api/UserAPI";
 import { UserTable } from "../../components/UserTable/UserTable";
-import UserTableRow from "../../components/UserTable/UserTableRow";
 import { User } from "../../api/UserAPI/user.type";
+
+import UserTableRow from "../../components/UserTable/UserTableRow";
 import NewUserTableRow from "../../components/UserTable/NewUserTableRow";
 import Spinner from "../../layout/Spinner/Spinner";
 import useSortQueryTable from "../../hooks/useSortQueryTable";
 
 const Home: FC = () => {
   const queryClient = useQueryClient();
+  const nav = useNavigate();
 
   const [createNewUserFlag, setcreateNewUserFlag] = useState<boolean>(false);
   // Fetch users
@@ -79,9 +83,9 @@ const Home: FC = () => {
 
   return (
     <div>
-      <h1>Overview</h1>
-      <p>Here you can find user details.</p>
       <div className="mx-auto md:max-w-[90%]">
+        <h1>Overview</h1>
+        <p>Here you can find user details.</p>
         <div className="flex justify-end items-center">
           <button
             onClick={() => setcreateNewUserFlag(true)}
@@ -110,6 +114,9 @@ const Home: FC = () => {
               <UserTableRow
                 key={`${user.id}`}
                 user={user}
+                onClick={() => {
+                  nav(`/users/${user.id}`);
+                }}
                 onEdit={(updatedUser: User) =>
                   updateUserMutation.mutate({
                     id: user.id as string,

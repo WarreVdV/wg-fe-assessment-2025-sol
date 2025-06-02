@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { IoChevronDown } from "react-icons/io5";
+
 interface ChevronProps {
   direction: "asc" | "desc";
 }

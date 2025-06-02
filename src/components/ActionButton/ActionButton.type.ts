@@ -5,5 +5,4 @@ export interface ActionButtonProps {
   text?: string;
   className?: string;
   disabled?: boolean;
-  tooltip?: string;
 }

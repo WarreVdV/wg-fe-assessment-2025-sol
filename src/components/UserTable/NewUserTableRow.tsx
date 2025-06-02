@@ -1,12 +1,19 @@
 import { FC, useCallback, useMemo, useState } from "react";
+
+import classNames from "classnames";
+
 import { NewUserTableRowProps } from "./UserTable.type";
-import ActionButton from "../ActionButton/ActionButton";
 import { User } from "../../api/UserAPI/user.type";
 import { ROLE_OPTIONS } from "../../util/constants";
-import classNames from "classnames";
+
+import ActionButton from "../ActionButton/ActionButton";
 import handleRoleColor from "../../util/handleRoleColor";
 
-const NewUserTableRow: FC<NewUserTableRowProps> = ({ onCreate, onCancel }) => {
+const NewUserTableRow: FC<NewUserTableRowProps> = ({
+  className,
+  onCreate,
+  onCancel,
+}) => {
   const [name, setName] = useState<String>("");
   const [email, setEmail] = useState<String>("");
   const [role, setRole] = useState<User["role"]>("User");
@@ -19,13 +26,19 @@ const NewUserTableRow: FC<NewUserTableRowProps> = ({ onCreate, onCancel }) => {
     setRole("User");
   }, [name, email, role]);
 
+  // Handle create user action
   const handleCreateUser = useCallback(() => {
     onCreate({ name: name, email: email, role: role } as User);
     resetUser();
   }, [name, email, role]);
 
   return (
-    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+    <tr
+      className={classNames(
+        className,
+        "bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+      )}
+    >
       <th
         scope="row"
         className="flex items-center px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white"
@@ -94,12 +107,10 @@ const NewUserTableRow: FC<NewUserTableRowProps> = ({ onCreate, onCancel }) => {
         <div className="flex space-x-2">
           <ActionButton
             actionType="accept"
-            tooltip="Accept"
             onClick={handleCreateUser}
           ></ActionButton>
           <ActionButton
             actionType="stop"
-            tooltip="Cancel"
             onClick={() => onCancel()}
           ></ActionButton>
         </div>

@@ -7,6 +7,7 @@ interface AppRoutesProps {
 
 export const AppRoutes: FC<AppRoutesProps> = ({ children }) => {
   return (
+    // Wrapping the routes with BrowserRouter to enable routing in the application
     <BrowserRouter>
       <Routes>{children}</Routes>
     </BrowserRouter>

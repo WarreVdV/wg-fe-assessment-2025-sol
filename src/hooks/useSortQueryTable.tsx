@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import sortBy from "lodash/sortBy";
-
 import { useSearchParams } from "react-router";
+
+import sortBy from "lodash/sortBy";
 
 type sortDirection = "asc" | "desc";
 
